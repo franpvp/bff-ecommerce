@@ -5,9 +5,9 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.example</groupId>
-    <artifactId>bffazure</artifactId>
+    <artifactId>bff-ecommerce</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>bff-azure-resource-server</name>
+    <name>bff-ecommerce</name>
     <description>BFF Resource Server secured with Azure AD (Entra ID) JWT</description>
     <packaging>jar</packaging>
 
@@ -18,10 +18,10 @@
         <relativePath/>
     </parent>
 
-    <!-- SPRING CLOUD (necesario para FEIGN) -->
+    <!-- SPRING CLOUD  -->
     <properties>
         <java.version>17</java.version>
-        <spring-cloud.version>2023.0.3</spring-cloud.version> <!-- Libra SR3 -->
+        <spring-cloud.version>2023.0.3</spring-cloud.version>
     </properties>
 
     <dependencies>
@@ -47,7 +47,6 @@
             <artifactId>spring-cloud-starter-openfeign</artifactId>
         </dependency>
 
-        <!-- Optional: loadbalancer si usas nombres de servicios en vez de URLs -->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-loadbalancer</artifactId>
@@ -60,7 +59,7 @@
             <optional>true</optional>
         </dependency>
 
-        <!-- Actuator (opcional) -->
+        <!-- Actuator  -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-actuator</artifactId>
@@ -74,7 +73,6 @@
         </dependency>
     </dependencies>
 
-    <!-- IMPORTAR SPRING CLOUD -->
     <dependencyManagement>
         <dependencies>
             <dependency>

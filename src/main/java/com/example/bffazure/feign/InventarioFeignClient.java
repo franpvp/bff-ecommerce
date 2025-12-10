@@ -1,6 +1,5 @@
 package com.example.bffazure.feign;
 
-
 import com.example.bffazure.dto.ActualizarInventarioRequest;
 import com.example.bffazure.dto.CrearInventarioRequest;
 import com.example.bffazure.dto.InventarioDTO;
@@ -13,18 +12,18 @@ import org.springframework.web.bind.annotation.*;
 )
 public interface InventarioFeignClient {
 
-    @PostMapping("/api/v1/inventarios")
+    @PostMapping
     InventarioDTO crear(@RequestBody CrearInventarioRequest request);
 
-    @GetMapping("/api/v1/inventarios/producto/{idProducto}")
+    @GetMapping("/producto/{idProducto}")
     InventarioDTO obtenerPorProducto(@PathVariable("idProducto") Long idProducto);
 
-    @PutMapping("/api/v1/inventarios/producto/{idProducto}")
+    @PutMapping("/producto/{idProducto}")
     InventarioDTO actualizarCantidad(
             @PathVariable("idProducto") Long idProducto,
             @RequestBody ActualizarInventarioRequest request
     );
 
-    @DeleteMapping("/api/v1/inventarios/{idInventario}")
+    @DeleteMapping("/{idInventario}")
     void eliminar(@PathVariable("idInventario") Long idInventario);
 }

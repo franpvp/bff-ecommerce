@@ -15,7 +15,7 @@ import java.util.List;
 
 @Slf4j
 @RestController
-@RequestMapping("/bff/tipo-usuario")
+@RequestMapping("/bff/roles")
 @RequiredArgsConstructor
 public class BffTipoUsuarioController {
 

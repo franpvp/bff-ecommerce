@@ -4,7 +4,13 @@ import com.example.bffazure.dto.ActualizarTipoUsuarioRequest;
 import com.example.bffazure.dto.CrearTipoUsuarioRequest;
 import com.example.bffazure.dto.TipoUsuarioResponse;
 import org.springframework.cloud.openfeign.FeignClient;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -14,22 +20,22 @@ import java.util.List;
 )
 public interface TipoUsuarioFeignClient {
 
-    @PostMapping("/tipo-usuario")
+    @PostMapping
     TipoUsuarioResponse crear(@RequestBody CrearTipoUsuarioRequest request);
 
-    @GetMapping("/tipo-usuario/{id}")
+    @GetMapping("/{id}")
     TipoUsuarioResponse obtenerPorId(@PathVariable Long id);
 
-    @GetMapping("/tipo-usuario")
+    @GetMapping
     List<TipoUsuarioResponse> listarTodos();
 
-    @GetMapping("/tipo-usuario/buscar")
+    @GetMapping("/buscar")
     TipoUsuarioResponse obtenerPorNombre(@RequestParam String nombreTipo);
 
-    @PutMapping("/tipo-usuario/{id}")
+    @PutMapping("/{id}")
     TipoUsuarioResponse actualizar(@PathVariable Long id, @RequestBody ActualizarTipoUsuarioRequest request);
 
-    @DeleteMapping("/tipo-usuario/{id}")
+    @DeleteMapping("/{id}")
     void eliminar(@PathVariable Long id);
 }
 

@@ -6,9 +6,9 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 
 @SpringBootApplication
 @EnableFeignClients
-public class BffAzureApplication {
+public class BffEcommerceApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(BffAzureApplication.class, args);
+        SpringApplication.run(BffEcommerceApplication.class, args);
     }
 }

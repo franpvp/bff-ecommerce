@@ -32,7 +32,6 @@ public class BffOrdenesController {
                 .body(response);
     }
 
-
     /**
      * Obtener la última orden del cliente usando su idCliente
      */
@@ -44,6 +43,12 @@ public class BffOrdenesController {
         log.info("Usuario :", usuario);
         OrdenEstadoDto ultimaOrden = ordenesFeignClient.obtenerUltimaOrden(idCliente);
         return ResponseEntity.ok(ultimaOrden);
+    }
+
+    @GetMapping("/{idOrden}")
+    public ResponseEntity<OrdenDto> buscarOrdenPorId(@PathVariable Long idOrden) {
+        OrdenDto dto = ordenesFeignClient.buscarOrdenPorId(idOrden);
+        return ResponseEntity.ok(dto);
     }
 
 

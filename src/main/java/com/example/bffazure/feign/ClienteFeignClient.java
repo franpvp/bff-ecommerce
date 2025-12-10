@@ -4,7 +4,12 @@ import com.example.bffazure.dto.ActualizarClienteRequest;
 import com.example.bffazure.dto.ClienteResponse;
 import com.example.bffazure.dto.CrearClienteRequest;
 import org.springframework.cloud.openfeign.FeignClient;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 
@@ -14,18 +19,24 @@ import java.util.List;
 )
 public interface ClienteFeignClient {
 
-    @PostMapping("/clientes")
+    @PostMapping
     ClienteResponse crear(@RequestBody CrearClienteRequest request);
 
-    @GetMapping("/clientes/{id}")
+    @GetMapping("/{id}")
     ClienteResponse obtenerPorId(@PathVariable Long id);
 
-    @GetMapping("/clientes")
+    @GetMapping("/email/{email}")
+    ClienteResponse obtenerPorEmail(@PathVariable String email);
+
+    @GetMapping
     List<ClienteResponse> listarTodos();
 
-    @PutMapping("/clientes/{id}")
-        ClienteResponse actualizar(@PathVariable Long id, @RequestBody ActualizarClienteRequest request);
+    @PutMapping("/{id}")
+    ClienteResponse actualizar(@PathVariable Long id, @RequestBody ActualizarClienteRequest request);
 
-    @DeleteMapping("/clientes/{id}")
+    @DeleteMapping("/{id}")
     void eliminar(@PathVariable Long id);
+
+    @PostMapping("/sync")
+    ClienteResponse sincronizarClienteAutenticado();
 }

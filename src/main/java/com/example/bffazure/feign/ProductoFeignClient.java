@@ -4,7 +4,12 @@ import com.example.bffazure.dto.ActualizarProductoRequest;
 import com.example.bffazure.dto.CrearProductoRequest;
 import com.example.bffazure.dto.ProductoDTO;
 import org.springframework.cloud.openfeign.FeignClient;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 
@@ -14,21 +19,21 @@ import java.util.List;
 )
 public interface ProductoFeignClient {
 
-    @GetMapping("/api/v1/productos")
+    @GetMapping
     List<ProductoDTO> listar();
 
-    @GetMapping("/api/v1/productos/{id}")
+    @GetMapping("/{id}")
     ProductoDTO obtener(@PathVariable("id") Long id);
 
-    @PostMapping("/api/v1/productos")
+    @PostMapping
     ProductoDTO crear(@RequestBody CrearProductoRequest request);
 
-    @PutMapping("/api/v1/productos/{id}")
+    @PutMapping("/{id}")
     ProductoDTO actualizar(
             @PathVariable("id") Long id,
             @RequestBody ActualizarProductoRequest request
     );
 
-    @DeleteMapping("/api/v1/productos/{id}")
+    @DeleteMapping("/{id}")
     void eliminar(@PathVariable("id") Long id);
 }

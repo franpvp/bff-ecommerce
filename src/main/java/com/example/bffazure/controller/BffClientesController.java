@@ -50,6 +50,17 @@ public class BffClientesController {
     }
 
     /**
+     * Obtener cliente por email
+     */
+
+    @GetMapping("/email/{email}")
+    public ResponseEntity<ClienteResponse> obtenerPorEmail(@PathVariable String email){
+        log.info("[BFF-CLIENTES] Cliente '{}' solicitó obtener el email ", email);
+        ClienteResponse cliente = clienteFeignClient.obtenerPorEmail(email);
+        return ResponseEntity.ok(cliente);
+    }
+
+    /**
      * Listar todos los clientes
      */
     @GetMapping
@@ -90,4 +101,10 @@ public class BffClientesController {
 
         return ResponseEntity.noContent().build();
     }
+
+    @PostMapping("/sync")
+    public ClienteResponse sincronizarClienteAutenticado() {
+        return clienteFeignClient.sincronizarClienteAutenticado();
+    }
+
 }
