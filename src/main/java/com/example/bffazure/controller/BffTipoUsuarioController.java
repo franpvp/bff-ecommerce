@@ -17,6 +17,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/bff/roles")
 @RequiredArgsConstructor
+@CrossOrigin
 public class BffTipoUsuarioController {
 
     private final TipoUsuarioFeignClient tipoUsuarioFeignClient;

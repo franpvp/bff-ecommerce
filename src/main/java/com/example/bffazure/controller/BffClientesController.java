@@ -15,6 +15,7 @@ import java.util.List;
 
 @Slf4j
 @RestController
+@CrossOrigin
 @RequestMapping("/bff/clientes")
 @RequiredArgsConstructor
 public class BffClientesController {

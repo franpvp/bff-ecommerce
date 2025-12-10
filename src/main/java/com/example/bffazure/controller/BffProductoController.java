@@ -10,19 +10,19 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/bff/productos")
+@CrossOrigin
 @RequiredArgsConstructor
 public class BffProductoController {
 
     private final ProductoFeignClient productoFeignClient;
 
     @GetMapping
-    public ResponseEntity<?> listar(Authentication authentication) {
+    public ResponseEntity<?> listar() {
         return ResponseEntity.ok(productoFeignClient.listar());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<?> obtener(@PathVariable Long id,
-                                     Authentication authentication) {
+    public ResponseEntity<?> obtener(@PathVariable Long id) {
 
         return ResponseEntity.ok(productoFeignClient.obtener(id));
     }

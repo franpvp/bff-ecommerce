@@ -14,6 +14,8 @@ FROM eclipse-temurin:21-jre
 WORKDIR /app
 ENV TZ=America/Santiago
 
+ENV SPRING_PROFILES_ACTIVE=docker
+
 COPY --from=build /app/target/bff-ecommerce-0.0.1-SNAPSHOT.jar app.jar
 
 ENTRYPOINT ["java","-jar","/app/app.jar"]
