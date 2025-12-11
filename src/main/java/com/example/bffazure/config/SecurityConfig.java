@@ -26,28 +26,24 @@ public class SecurityConfig {
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()))
                 .authorizeHttpRequests(auth -> auth
 
-                        // Endpoints públicos
+                        // Health-check
                         .requestMatchers("/actuator/health", "/public/**").permitAll()
-
-                        // GET públicos de catálogo
                         .requestMatchers(HttpMethod.GET,
                                 "/bff/productos/**",
                                 "/bff/categorias/**",
-                                "/bff/ordenes/**",
-                                "/bff/inventarios/**",
+                                "/bff/inventarios/**"
+                        ).permitAll()
+                        .requestMatchers(HttpMethod.GET,
                                 "/bff/clientes/email/**"
                         ).permitAll()
-
-                        // Métricas solo autenticados
+                        .requestMatchers(HttpMethod.OPTIONS, "/bff/**").permitAll()
                         .requestMatchers("/bff/metrics/**").authenticated()
                         .requestMatchers("/bff/roles/**").authenticated()
-
-                        // POST/PUT/DELETE protegidos
                         .requestMatchers(HttpMethod.POST, "/bff/**").authenticated()
                         .requestMatchers(HttpMethod.PUT, "/bff/**").authenticated()
                         .requestMatchers(HttpMethod.DELETE, "/bff/**").authenticated()
 
-                        // Cualquier otra cosa requiere login
+                        // Cualquier otra cosa requiere token
                         .anyRequest().authenticated()
                 )
                 .oauth2ResourceServer(oauth2 ->
