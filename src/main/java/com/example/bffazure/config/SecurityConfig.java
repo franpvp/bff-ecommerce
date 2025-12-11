@@ -33,7 +33,9 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.GET,
                                 "/bff/productos/**",
                                 "/bff/categorias/**",
-                                "/bff/inventarios/**"
+                                "/bff/ordenes/**",
+                                "/bff/inventarios/**",
+                                "/bff/clientes/email/**"
                         ).permitAll()
 
                         // Métricas solo autenticados
