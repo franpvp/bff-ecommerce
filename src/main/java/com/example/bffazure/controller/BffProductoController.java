@@ -23,7 +23,6 @@ public class BffProductoController {
 
     @GetMapping("/{id}")
     public ResponseEntity<?> obtener(@PathVariable Long id) {
-
         return ResponseEntity.ok(productoFeignClient.obtener(id));
     }
 

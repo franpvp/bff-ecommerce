@@ -27,27 +27,22 @@ public class BffCategoriaController {
     public ResponseEntity<?> actualizar(@PathVariable Long id,
                                         @RequestBody ActualizarCategoriaRequest request,
                                         Authentication authentication) {
-
         return ResponseEntity.ok(categoriaFeignClient.actualizar(id, request));
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<?> obtener(@PathVariable Long id,
-                                     Authentication authentication) {
-
+    public ResponseEntity<?> obtener(@PathVariable Long id) {
         return ResponseEntity.ok(categoriaFeignClient.obtenerPorId(id));
     }
 
     @GetMapping
-    public ResponseEntity<?> listar(Authentication authentication) {
-
+    public ResponseEntity<?> listar() {
         return ResponseEntity.ok(categoriaFeignClient.listar());
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<?> eliminar(@PathVariable Long id,
                                       Authentication authentication) {
-
         categoriaFeignClient.eliminar(id);
         return ResponseEntity.noContent().build();
     }

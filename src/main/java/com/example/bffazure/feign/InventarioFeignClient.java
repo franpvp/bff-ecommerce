@@ -6,11 +6,16 @@ import com.example.bffazure.dto.InventarioDTO;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @FeignClient(
         name = "ms-inventarios",
         url = "${services.inventarios.url}"
 )
 public interface InventarioFeignClient {
+
+    @GetMapping
+    List<InventarioDTO> listar();
 
     @PostMapping
     InventarioDTO crear(@RequestBody CrearInventarioRequest request);

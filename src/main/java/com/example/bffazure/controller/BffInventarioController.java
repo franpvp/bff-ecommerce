@@ -16,17 +16,20 @@ public class BffInventarioController {
 
     private final InventarioFeignClient inventarioFeignClient;
 
+    @GetMapping   // <--- ESTE TE FALTABA
+    public ResponseEntity<?> listar(Authentication authentication) {
+        return ResponseEntity.ok(inventarioFeignClient.listar());
+    }
+
     @PostMapping
     public ResponseEntity<?> crear(@RequestBody CrearInventarioRequest request,
                                    Authentication authentication) {
-
         return ResponseEntity.ok(inventarioFeignClient.crear(request));
     }
 
     @GetMapping("/producto/{idProducto}")
     public ResponseEntity<?> obtenerPorProducto(@PathVariable Long idProducto,
                                                 Authentication authentication) {
-
         return ResponseEntity.ok(inventarioFeignClient.obtenerPorProducto(idProducto));
     }
 
@@ -34,16 +37,13 @@ public class BffInventarioController {
     public ResponseEntity<?> actualizar(@PathVariable Long idProducto,
                                         @RequestBody ActualizarInventarioRequest request,
                                         Authentication authentication) {
-
         return ResponseEntity.ok(inventarioFeignClient.actualizarCantidad(idProducto, request));
     }
 
     @DeleteMapping("/{idInventario}")
     public ResponseEntity<?> eliminar(@PathVariable Long idInventario,
                                       Authentication authentication) {
-
         inventarioFeignClient.eliminar(idInventario);
         return ResponseEntity.noContent().build();
     }
 }
-

@@ -2,6 +2,7 @@ package com.example.bffazure.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationConverter;
@@ -23,23 +24,32 @@ public class SecurityConfig {
         http
                 .csrf(csrf -> csrf.disable())
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()))
-
                 .authorizeHttpRequests(auth -> auth
 
-                        // ============================================
-                        // RUTAS PÚBLICAS (sin autenticación)
-                        // ============================================
-                        .requestMatchers(
-                                "/actuator/health",
-                                "/public/**",
-                                "/bff/productos/**"
+                        // Endpoints públicos
+                        .requestMatchers("/actuator/health", "/public/**").permitAll()
+
+                        // GET públicos de catálogo
+                        .requestMatchers(HttpMethod.GET,
+                                "/bff/productos/**",
+                                "/bff/categorias/**",
+                                "/bff/inventarios/**"
                         ).permitAll()
 
+                        // Métricas solo autenticados
+                        .requestMatchers("/bff/metrics/**").authenticated()
+                        .requestMatchers("/bff/roles/**").authenticated()
+
+                        // POST/PUT/DELETE protegidos
+                        .requestMatchers(HttpMethod.POST, "/bff/**").authenticated()
+                        .requestMatchers(HttpMethod.PUT, "/bff/**").authenticated()
+                        .requestMatchers(HttpMethod.DELETE, "/bff/**").authenticated()
+
+                        // Cualquier otra cosa requiere login
                         .anyRequest().authenticated()
                 )
-
-                .oauth2ResourceServer(oauth2 -> oauth2
-                        .jwt(jwt -> jwt.jwtAuthenticationConverter(jwtAuthenticationConverter()))
+                .oauth2ResourceServer(oauth2 ->
+                        oauth2.jwt(jwt -> jwt.jwtAuthenticationConverter(jwtAuthenticationConverter()))
                 );
 
         return http.build();
