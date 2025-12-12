@@ -25,7 +25,6 @@ public class BffMetricsController {
     @GetMapping("/ordenes/hoy")
     public ResponseEntity<List<OrdenEstadoMetricDto>> obtenerMetricasOrdenesHoy(Authentication authentication) {
 
-        log.info("Usuario {} solicitó métricas de órdenes hoy", authentication.getName());
 
         List<OrdenEstadoMetricDto> response = ordenesFeignClient.obtenerMetricasOrdenesHoy();
         return ResponseEntity.ok(response);
@@ -34,7 +33,6 @@ public class BffMetricsController {
     @GetMapping("/ordenes/hoy/correctas")
     public ResponseEntity<Long> obtenerCorrectasHoy(Authentication authentication) {
 
-        log.info("Usuario {} solicitó métricas de órdenes correctas", authentication.getName());
 
         Long response = ordenesFeignClient.obtenerCorrectasHoy();
         return ResponseEntity.ok(response);
@@ -42,8 +40,7 @@ public class BffMetricsController {
 
     @GetMapping("/usuarios/activos")
     public ResponseEntity<Long> obtenerUsuariosActivos(Authentication authentication) {
-
-        log.info("Usuario {} solicitó usuarios activos", authentication.getName());
+        ;
 
         Long response = ordenesFeignClient.obtenerUsuariosActivos();
         return ResponseEntity.ok(response);

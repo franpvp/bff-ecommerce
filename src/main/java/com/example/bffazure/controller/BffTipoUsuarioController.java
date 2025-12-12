@@ -29,8 +29,6 @@ public class BffTipoUsuarioController {
     public ResponseEntity<TipoUsuarioResponse> crear(Authentication authentication,
                                                      @RequestBody CrearTipoUsuarioRequest request) {
 
-        log.info("[BFF-TIPO-USUARIO] Usuario '{}' solicitó crear tipo de usuario",
-                authentication.getName());
 
         TipoUsuarioResponse response = tipoUsuarioFeignClient.crear(request);
 
@@ -46,8 +44,6 @@ public class BffTipoUsuarioController {
     public ResponseEntity<TipoUsuarioResponse> obtenerPorId(Authentication authentication,
                                                             @PathVariable Long id) {
 
-        log.info("[BFF-TIPO-USUARIO] Usuario '{}' solicitó obtener tipo de usuario ID {}",
-                authentication.getName(), id);
 
         TipoUsuarioResponse response = tipoUsuarioFeignClient.obtenerPorId(id);
 
@@ -62,8 +58,6 @@ public class BffTipoUsuarioController {
     @GetMapping
     public ResponseEntity<List<TipoUsuarioResponse>> listarTodos(Authentication authentication) {
 
-        log.info("[BFF-TIPO-USUARIO] Usuario '{}' solicitó listar todos los tipos de usuario",
-                authentication.getName());
 
         List<TipoUsuarioResponse> lista = tipoUsuarioFeignClient.listarTodos();
 
@@ -79,8 +73,6 @@ public class BffTipoUsuarioController {
     public ResponseEntity<TipoUsuarioResponse> obtenerPorNombre(Authentication authentication,
                                                                 @RequestParam String nombreTipo) {
 
-        log.info("[BFF-TIPO-USUARIO] Usuario '{}' solicitó buscar tipo de usuario por nombre '{}'",
-                authentication.getName(), nombreTipo);
 
         TipoUsuarioResponse response = tipoUsuarioFeignClient.obtenerPorNombre(nombreTipo);
 
@@ -98,8 +90,6 @@ public class BffTipoUsuarioController {
                                                           @PathVariable Long id,
                                                           @RequestBody ActualizarTipoUsuarioRequest request) {
 
-        log.info("[BFF-TIPO-USUARIO] Usuario '{}' solicitó actualizar tipo de usuario ID {}",
-                authentication.getName(), id);
 
         TipoUsuarioResponse actualizado = tipoUsuarioFeignClient.actualizar(id, request);
 
@@ -115,8 +105,6 @@ public class BffTipoUsuarioController {
     public ResponseEntity<Void> eliminar(Authentication authentication,
                                          @PathVariable Long id) {
 
-        log.info("[BFF-TIPO-USUARIO] Usuario '{}' solicitó eliminar tipo de usuario ID {}",
-                authentication.getName(), id);
 
         tipoUsuarioFeignClient.eliminar(id);
 

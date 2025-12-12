@@ -1,5 +1,6 @@
 package com.example.bffazure.config;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -18,37 +19,43 @@ import java.util.List;
 @EnableMethodSecurity
 public class SecurityConfig {
 
+    @Value("${security.jwt.enabled:true}")
+    private boolean jwtEnabled;
+
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
         http
                 .csrf(csrf -> csrf.disable())
-                .cors(cors -> cors.configurationSource(corsConfigurationSource()))
-                .authorizeHttpRequests(auth -> auth
+                .cors(cors -> cors.configurationSource(corsConfigurationSource()));
 
-                        // Health-check
-                        .requestMatchers("/actuator/health", "/public/**").permitAll()
-                        .requestMatchers(HttpMethod.GET,
-                                "/bff/productos/**",
-                                "/bff/categorias/**",
-                                "/bff/inventarios/**"
-                        ).permitAll()
-                        .requestMatchers(HttpMethod.GET,
-                                "/bff/clientes/email/**"
-                        ).permitAll()
-                        .requestMatchers(HttpMethod.OPTIONS, "/bff/**").permitAll()
-                        .requestMatchers("/bff/metrics/**").authenticated()
-                        .requestMatchers("/bff/roles/**").authenticated()
-                        .requestMatchers(HttpMethod.POST, "/bff/**").authenticated()
-                        .requestMatchers(HttpMethod.PUT, "/bff/**").authenticated()
-                        .requestMatchers(HttpMethod.DELETE, "/bff/**").authenticated()
 
-                        // Cualquier otra cosa requiere token
-                        .anyRequest().authenticated()
-                )
-                .oauth2ResourceServer(oauth2 ->
-                        oauth2.jwt(jwt -> jwt.jwtAuthenticationConverter(jwtAuthenticationConverter()))
-                );
+        if (jwtEnabled) {
+            http.authorizeHttpRequests(auth -> auth
+
+                    // Health-check
+                    .requestMatchers("/actuator/health", "/public/**").permitAll()
+                    .requestMatchers(HttpMethod.GET,
+                            "/bff/productos/**",
+                            "/bff/categorias/**",
+                            "/bff/inventarios/**"
+                    ).permitAll()
+                    .requestMatchers(HttpMethod.GET,
+                            "/bff/clientes/email/**"
+                    ).permitAll()
+                    .requestMatchers(HttpMethod.OPTIONS, "/bff/**").permitAll()
+                    .requestMatchers("/bff/metrics/**").authenticated()
+                    .requestMatchers("/bff/roles/**").authenticated()
+                    .requestMatchers(HttpMethod.POST, "/bff/**").authenticated()
+                    .requestMatchers(HttpMethod.PUT, "/bff/**").authenticated()
+                    .requestMatchers(HttpMethod.DELETE, "/bff/**").authenticated()
+                    .anyRequest().authenticated()
+            ).oauth2ResourceServer(oauth2 ->
+                    oauth2.jwt(jwt ->
+                            jwt.jwtAuthenticationConverter(jwtAuthenticationConverter())
+                    )
+            );
+        }
 
         return http.build();
     }
