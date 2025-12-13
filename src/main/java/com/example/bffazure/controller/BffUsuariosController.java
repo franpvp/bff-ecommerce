@@ -29,8 +29,6 @@ public class BffUsuariosController {
     public ResponseEntity<UsuarioResponse> crearUsuario(Authentication authentication,
                                                         @RequestBody CrearUsuarioRequest request) {
 
-        log.info("[BFF-USUARIOS] Usuario '{}' solicitó crear un usuario",
-                authentication.getName());
 
         UsuarioResponse response = usuarioFeignClient.crear(request);
 
@@ -46,8 +44,6 @@ public class BffUsuariosController {
     public ResponseEntity<UsuarioResponse> obtenerPorId(Authentication authentication,
                                                         @PathVariable Long id) {
 
-        log.info("[BFF-USUARIOS] Usuario '{}' solicitó obtener usuario ID {}",
-                authentication.getName(), id);
 
         UsuarioResponse response = usuarioFeignClient.obtenerPorId(id);
 
@@ -62,8 +58,6 @@ public class BffUsuariosController {
     @GetMapping
     public ResponseEntity<List<UsuarioResponse>> listarTodos(Authentication authentication) {
 
-        log.info("[BFF-USUARIOS] Usuario '{}' solicitó listar todos los usuarios",
-                authentication.getName());
 
         List<UsuarioResponse> lista = usuarioFeignClient.listarTodos();
 
@@ -79,8 +73,6 @@ public class BffUsuariosController {
     public ResponseEntity<UsuarioResponse> obtenerPorEmail(Authentication authentication,
                                                            @PathVariable String email) {
 
-        log.info("[BFF-USUARIOS] Usuario '{}' buscó usuario por email '{}'",
-                authentication.getName(), email);
 
         UsuarioResponse response = usuarioFeignClient.obtenerPorEmail(email);
 
@@ -96,8 +88,6 @@ public class BffUsuariosController {
     public ResponseEntity<UsuarioResponse> obtenerPorUsername(Authentication authentication,
                                                               @PathVariable String username) {
 
-        log.info("[BFF-USUARIOS] Usuario '{}' buscó usuario por username '{}'",
-                authentication.getName(), username);
 
         UsuarioResponse response = usuarioFeignClient.obtenerPorUsername(username);
 

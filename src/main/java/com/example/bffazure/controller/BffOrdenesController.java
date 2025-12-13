@@ -23,9 +23,6 @@ public class BffOrdenesController {
     @PostMapping
     public ResponseEntity<OrdenDto> crearOrden(Authentication authentication,
                                                @RequestBody OrdenDto request) {
-        String usuario = authentication.getName();
-
-        log.info("Usuario :", usuario);
         OrdenDto response = ordenesFeignClient.crear(request);
 
         return ResponseEntity
@@ -40,8 +37,6 @@ public class BffOrdenesController {
     public ResponseEntity<?> obtenerUltimaOrden(Authentication authentication,
                                                 @PathVariable Long idCliente) {
 
-        String usuario = authentication.getName();
-        log.info("Usuario :", usuario);
         OrdenEstadoDto ultimaOrden = ordenesFeignClient.obtenerUltimaOrden(idCliente);
         return ResponseEntity.ok(ultimaOrden);
     }
