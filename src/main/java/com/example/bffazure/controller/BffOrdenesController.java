@@ -10,6 +10,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 
 @Slf4j
 @RestController
@@ -45,6 +47,16 @@ public class BffOrdenesController {
     public ResponseEntity<OrdenDto> buscarOrdenPorId(@PathVariable Long idOrden) {
         OrdenDto dto = ordenesFeignClient.buscarOrdenPorId(idOrden);
         return ResponseEntity.ok(dto);
+    }
+
+    @GetMapping("/cliente/{idCliente}/historial")
+    public ResponseEntity<List<OrdenDto>> obtenerHistorialCliente(
+            Authentication authentication,
+            @PathVariable Long idCliente
+    ) {
+        List<OrdenDto> historial =
+                ordenesFeignClient.obtenerHistorialCliente(idCliente);
+        return ResponseEntity.ok(historial);
     }
 
 

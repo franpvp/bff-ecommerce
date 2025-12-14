@@ -2,6 +2,7 @@ package com.example.bffazure.controller;
 
 import com.example.bffazure.dto.ActualizarClienteRequest;
 import com.example.bffazure.dto.ClienteResponse;
+import com.example.bffazure.dto.ContactoRequestDto;
 import com.example.bffazure.dto.CrearClienteRequest;
 import com.example.bffazure.feign.ClienteFeignClient;
 import lombok.RequiredArgsConstructor;
@@ -99,6 +100,12 @@ public class BffClientesController {
     @PostMapping("/sync")
     public ClienteResponse sincronizarClienteAutenticado() {
         return clienteFeignClient.sincronizarClienteAutenticado();
+    }
+
+    @PostMapping("/contacto")
+    public ResponseEntity<Void> enviarContacto(@RequestBody ContactoRequestDto request) {
+        clienteFeignClient.enviar(request);
+        return ResponseEntity.ok().build();
     }
 
 }

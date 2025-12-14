@@ -33,7 +33,11 @@ public interface OrdenesFeignClient {
 
     @GetMapping("/api/v1/metrics/ordenes/hoy/correctas")
     Long obtenerCorrectasHoy();
+
     @GetMapping("/api/v1/metrics/usuarios/activos")
     Long obtenerUsuariosActivos();
+
+    @GetMapping("/api/v1/ordenes/cliente/{idCliente}/historial")
+    List<OrdenDto> obtenerHistorialCliente(@PathVariable Long idCliente);
 
 }
