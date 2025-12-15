@@ -1,9 +1,11 @@
 package com.example.bffazure.feign;
 
 import com.example.bffazure.dto.ActualizarClienteRequest;
+import com.example.bffazure.dto.ActualizarRolRequest;
 import com.example.bffazure.dto.ClienteResponse;
 import com.example.bffazure.dto.ContactoRequestDto;
 import com.example.bffazure.dto.CrearClienteRequest;
+import com.example.bffazure.dto.UsuarioResponse;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -45,6 +47,7 @@ public interface ClienteFeignClient {
     @PostMapping("/contacto")
     ResponseEntity<Void> enviar(@RequestBody ContactoRequestDto request);
 
-
+    @PutMapping("/{id}/rol")
+    UsuarioResponse actualizarRol(@PathVariable Long id, @RequestBody ActualizarRolRequest request);
 
 }

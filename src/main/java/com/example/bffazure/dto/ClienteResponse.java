@@ -19,4 +19,5 @@ public class ClienteResponse {
     private String direccion;
     private String ciudad;
     private LocalDateTime fechaRegistro;
+    private UsuarioDTO usuario;
 }

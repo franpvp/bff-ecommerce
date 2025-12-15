@@ -1,9 +1,11 @@
 package com.example.bffazure.controller;
 
 import com.example.bffazure.dto.ActualizarClienteRequest;
+import com.example.bffazure.dto.ActualizarRolRequest;
 import com.example.bffazure.dto.ClienteResponse;
 import com.example.bffazure.dto.ContactoRequestDto;
 import com.example.bffazure.dto.CrearClienteRequest;
+import com.example.bffazure.dto.UsuarioResponse;
 import com.example.bffazure.feign.ClienteFeignClient;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -105,6 +107,12 @@ public class BffClientesController {
     @PostMapping("/contacto")
     public ResponseEntity<Void> enviarContacto(@RequestBody ContactoRequestDto request) {
         clienteFeignClient.enviar(request);
+        return ResponseEntity.ok().build();
+    }
+
+    @PutMapping("/{id}/rol")
+    public ResponseEntity<UsuarioResponse> actualizarRol(@PathVariable Long id, @RequestBody ActualizarRolRequest request) {
+        clienteFeignClient.actualizarRol(id, request);
         return ResponseEntity.ok().build();
     }
 
